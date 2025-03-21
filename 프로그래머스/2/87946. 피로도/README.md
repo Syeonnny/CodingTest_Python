@@ -91,9 +91,9 @@
 
 [실행 흐름]
 - for path in permutations(...)
-     └── 상태값 초기화
-     └── for item in path:
-         └── 조건 체크 (if current >= required)
-             └── 진행 or break
-     └── count 저장
- └── return max(count_list)
+  - 상태값 초기화
+  - for item in path:
+    - 조건 체크 (if current >= required)
+    - 진행 or break
+      - count 저장
+- return max(count_list)
