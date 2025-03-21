@@ -85,12 +85,12 @@
 
 ---
 [문제 읽기]
- └── 순서 중요? → permutations
- └── 최대/최소 성과? → count, max 저장
- └── 조건 누적됨? → 상태값 유지 (k 등)
+- 순서 중요? → permutations
+- 최대/최소 성과? → count, max 저장
+- 조건 누적됨? → 상태값 유지 (k 등)
 
 [실행 흐름]
- └── for path in permutations(...)
+- for path in permutations(...)
      └── 상태값 초기화
      └── for item in path:
          └── 조건 체크 (if current >= required)
