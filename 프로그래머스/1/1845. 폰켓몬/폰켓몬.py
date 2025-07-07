@@ -1,8 +1,4 @@
 def solution(nums):
-    numbers = list(set(nums))
-    if len(numbers) == (len(nums)//2):
-        return len(numbers)
-    elif len(numbers) >= (len(nums)//2):
-        return len(nums)/2
-    else:
-        return len(numbers)
+    num = len(nums)//2
+    set_nums = set(nums)
+    return min(num, len(set_nums))
