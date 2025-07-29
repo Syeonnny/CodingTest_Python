@@ -1,25 +1,28 @@
-from collections import deque
+from collections import deque 
 
 def solution(begin, target, words):
-    visited = [False] * len(words)
+    answer = 0
+    visited = [False] *len(words)
+    queue = deque()
+    queue.append((begin,0))
     
-    def can_convert(words1, words2):
-        diff = 0
-        for i in range(len(words1)):
-            if words1[i] != words2[i]:
-                diff += 1 
-        return diff
+    def check(word1, word2):
+        diff = 0 
+        for i in range(len(word1)):
+            if word1[i] != word2[i]:
+                diff += 1
+        if diff == 1:
+            return True 
+        return False
     
-    def bfs(begin, count): 
-        queue = deque([(begin, count)])
+    def bfs():
         while queue:
-            current_word, count = queue.popleft()
-            if current_word == target:
-                return count
-            else:
-                for idx, char in enumerate(words):
-                    if not visited[idx] and can_convert(current_word, char) == 1:
-                        queue.append((char, count+1))
-                        visited[idx] = True
+            current = queue.popleft()
+            if current[0] == target:
+                return current[1]
+            for i in range(len(words)):
+                if not visited[i] and check(current[0], words[i]):
+                    queue.append((words[i], current[1]+1))
+                    visited[i] = True
         return 0
-    return bfs(begin, 0)
+    return bfs()
