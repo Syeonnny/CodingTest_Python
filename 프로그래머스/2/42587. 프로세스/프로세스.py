@@ -1,12 +1,12 @@
 from collections import deque
 def solution(priorities, location):
-    answer = 0
-    priorities = deque([(i,p) for i,p in enumerate(priorities)])
-    while priorities:
-        current = priorities.popleft()
-        if any(current[1] < p[1] for p in priorities):
-            priorities.append(current)
+    rank = 0
+    queue = deque([(idx, p) for idx, p in enumerate(priorities)])
+    while queue:
+        idx, prior = queue.popleft()
+        if any(p > prior for _, p in queue):
+            queue.append((idx,prior))
         else:
-            answer += 1
-            if location == current[0]:
-                return answer
+            rank += 1
+            if idx == location:
+                return rank
