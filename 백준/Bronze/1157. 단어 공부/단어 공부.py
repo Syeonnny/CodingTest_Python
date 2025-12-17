@@ -1,11 +1,11 @@
-words = input().upper()
-n = {}
-for ch in words:
-    n[ch] = n.get(ch,0) + 1
-max_val = max(n.values())
-max_key = [key for key, value in n.items() if value == max_val]
+from collections import Counter
 
-if len(max_key) > 1: 
+words = input().upper()
+cnt = Counter(words)
+
+max_char, max_val = cnt.most_common(1)[0]
+
+if list(cnt.values()).count(max_val) > 1:
     print("?")
-else: 
-    print(max_key[0])
+else:
+    print(max_char)
