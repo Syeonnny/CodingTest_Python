@@ -1,14 +1,17 @@
-N = input()
-cnt = 0
+import sys
+
+N = sys.stdin.readline().strip()
 
 others = {}
+six_nine = 0
 
-for i in N:
-    if int(i) not in [6, 9]:
-        others[i] = others.get(i, 0) + 1
+for ch in N:
+    if ch == '6' or ch == '9':
+        six_nine += 1
+    else:
+        others[ch] = others.get(ch, 0) + 1
 
-six_nine = (int(N.count('6') + N.count('9')) + 1) // 2
+six_nine = (six_nine + 1) // 2
+others_max = max(others.values(), default=0)
 
-others_max = max(others.values(), default = 0)
-cnt = max(others_max, six_nine)   
-print(cnt)
+print(max(others_max, six_nine))
