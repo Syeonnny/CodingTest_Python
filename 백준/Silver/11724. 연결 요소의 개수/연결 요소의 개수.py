@@ -1,4 +1,5 @@
 import sys 
+from collections import deque
 sys.setrecursionlimit(10**7)
 
 input = sys.stdin.readline
@@ -13,15 +14,20 @@ for _ in range(M):
 
 visited = [False] * (N+1)
 
-def dfs(graph, v, visited):
+queue = deque()
+def bfs(graph, v, visited):
+    queue.append(v)
     visited[v] = True
-    for i in graph[v]:
-        if not visited[i]:
-            dfs(graph, i, visited)
-
-cnt = 0
+    while queue:
+        v = queue.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                visited[i] = True
+                queue.append(i)
+cnt = 0 
 for i in range(1, N+1):
     if not visited[i]:
-        cnt += 1 
-        dfs(graph, i, visited)
+        cnt += 1
+        bfs(graph, i, visited)
+
 print(cnt)
