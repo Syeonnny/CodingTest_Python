@@ -1,25 +1,26 @@
 import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().strip().split())
-array = list(map(int, input().strip().split()))
+N, M = map(int, input().strip().split())
+trees = list(map(int, input().strip().split()))
 
-start = 0 
-end = max(array)
-result = 0 
+low = 0
+high = max(trees)
+candidate = 0 
 
-while start <= end: 
-    total = 0
-    mid = (start + end) // 2
+while low <= high:
+    H = (low + high) // 2 
+    d = 0 
+    for i in trees:
+        if i > H:
+            d += (i-H)
+            if d >= M:
+                break 
     
-    for i in array:
-        if i > mid:
-            total += i - mid
-       
-    if total < m:
-        end = mid - 1
+    if d >= M:
+        candidate = H
+        low = H + 1
     else:
-        result = mid
-        start = mid + 1
-
-print(result)
+        high = H - 1
+    
+print(candidate)
