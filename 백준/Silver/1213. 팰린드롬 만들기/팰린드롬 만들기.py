@@ -1,15 +1,28 @@
-S = input()
+s = input()
+s_dict = {}
+for ch in s:
+    s_dict[ch] = s_dict.get(ch, 0) + 1
 
-from collections import Counter
-counts = Counter(S)
+odd_cnt = 0
+mid = ''
 
-odd_chars = [ch for ch, v in counts.items() if v % 2 == 1]
-if len(odd_chars) > 1:
+for v in s_dict.values():
+    if v % 2 == 1:
+        odd_cnt += 1
+
+if odd_cnt > 1:
     print("I'm Sorry Hansoo")
+
 else: 
-    mid = odd_chars[0] if odd_chars else ""
-    words = []
-    for ch in sorted(counts.keys()):
-        words.append(ch * (counts[ch] // 2))
-    words = ''.join(words)
-    print(words + mid + words[::-1])
+    left = []
+    mid = ''
+
+    for ch in sorted(s_dict.keys()):
+        repeat = s_dict[ch] // 2
+        left.append(ch * repeat)
+
+        if s_dict[ch] % 2 == 1:
+            mid = ch
+
+    ans = "".join(left) + mid + "".join(left[::-1])
+    print(ans)
