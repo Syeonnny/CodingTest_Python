@@ -1,28 +1,19 @@
-from collections import deque 
+from collections import deque
 T = int(input())
-ans = []
 
-for _ in range(T):
+for i in range(T):
     N, M = map(int, input().split())
-    queue = deque()
-    cnt = 0
 
-    prior = []
-    while len(prior) < N:
-        prior.extend(map(int, input().split()))
+    lists = list(map(int, input().split()))
+    cnt = 0 
+    queue = deque((idx, v) for idx, v in enumerate(lists))
 
-    for i, p in enumerate(prior):
-        queue.append((p, i == M))
-
-    while queue:
-        p, is_target = queue.popleft()
-
-        if queue and p < max(x[0] for x in queue):
-            queue.append((p, is_target))
-        else:
+    while queue: 
+        idx, v = queue.popleft()
+        if any(v < pv for _, pv in queue):
+            queue.append((idx, v))
+        else: 
             cnt += 1 
-            if is_target:
-                ans.append(cnt)
+            if idx == M:
+                print(cnt)
                 break
-
-print(*ans, sep='\n')
