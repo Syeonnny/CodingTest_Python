@@ -1,36 +1,31 @@
 N = int(input())
-num = int(input())
+target = int(input())
+graph = [[0]*N for i in range(N)]
 
-boards = [[0]*N for _ in range(N)]
+num = N**2
+x, y = 0, 0 
 
-dx = [-1, 0, 1, 0]
+dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
-
-x = N//2
-y = N//2
 d = 0 
 
-idx = 1 
-boards[x][y] = idx
+while num >= 1:
+    graph[x][y] = num
+    if num == target: 
+        tx, ty = x, y
 
-if idx == num:
-    num_ans = [x+1, y+1]
+    num -= 1  
 
-step = 1
-while idx < N**2:
-    for _ in range(2):
-        for _ in range(step):
-            if idx == N**2:
-                break
-            x += dx[d]
-            y += dy[d]
-            idx += 1
-            boards[x][y] = idx
-            if idx == num:
-                num_ans = [x+1, y+1]
-        d = (d+1) % 4
-    step += 1
+    nx = x + dx[d]
+    ny = y + dy[d]
 
-for row in boards:
+    if not (0 <= nx < N and 0 <= ny < N and graph[nx][ny] == 0):
+        d = (d+1) %4
+        nx = x + dx[d]
+        ny = y + dy[d]
+
+    x, y = nx, ny
+
+for row in graph:
     print(*row)
-print(*num_ans)
+print(tx+1, ty+1)
