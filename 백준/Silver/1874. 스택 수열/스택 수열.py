@@ -2,21 +2,23 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-stack = []
-ans = []
+ans = [int(input()) for _ in range(n)] 
 
-seq = [int(input().strip()) for _ in range(n)]
-    
-w = 1
-for target in seq:
-    while w <= target:
-        stack.append(w)
-        ans.append('+')
-        w += 1
-    if stack and stack[-1] == target:
-        stack.pop()
-        ans.append('-')
-    elif stack[-1] != target:
+st = []
+cur = 1
+ops = []
+
+for target in ans:
+    while cur <= target:
+        st.append(cur)
+        cur += 1
+        ops.append('+')
+
+    if st and st[-1] == target:
+        st.pop()
+        ops.append('-')
+    else:
         print("NO")
-        sys.exit()
-print(*ans, sep='\n')
+        sys.exit(0)
+
+print("\n".join(ops))
